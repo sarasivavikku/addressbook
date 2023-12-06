@@ -1,6 +1,8 @@
 pipeline {
     agent any
-    
+    parameters{
+        string(name:'Env',defaultValue='Test',description:'version to deploy')
+    }
          stages {
                  
                  stage("Compile"){
@@ -14,7 +16,7 @@ pipeline {
                  stage("UnitTest"){
                      steps{
                          script{
-                         echo "Testing the code"
+                         echo "Testing the code in  ${params.Env} env"
                          }
                      }
                  }
