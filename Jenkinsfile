@@ -2,6 +2,7 @@ pipeline {
     agent any
     parameters{
         string(name:'Env',defaultValue:'Test',description:'version to deploy')
+        booleanParam(name:'executeTests',defaultValue: 'true',description:'decide to run tc')
     }
          stages {
                  
@@ -14,6 +15,11 @@ pipeline {
                  }
                  
                  stage("UnitTest"){
+                    when {
+                        expression{
+                            param.executeTests == true
+                        }
+                    }
                      steps{
                          script{
                          echo "Testing the code in  ${params.Env} env"
