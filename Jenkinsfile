@@ -29,9 +29,17 @@ pipeline {
                  }
                  
                  stage("Package"){
+                    input {
+                        message "select the version to the package"
+                        ok "version selected"
+                        parameters{
+                            choice(name:'NEWVERSION', choices:['2.3',2.4,2.7])
+                        }
+                    }
                      steps{
                          script{
                          echo "Package the code ${params.APPVERSION}"
+                         echo "Package the code ${params.NEWVERSION}"
                          }
                      }
                  }
