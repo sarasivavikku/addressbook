@@ -33,9 +33,9 @@ pipeline{
              steps{
                 script{
                     echo "package the code"
-                    sshagent(['Build_server_key']) {
-                        sh "scp -o StrictHostKeyChecking=no server-script.sh ec2-user@172.31.29.112:/home/ec2-user"
-                   sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.29.112  'bash ~/server-script.sh'"
+                    sshagent(['Build_server_key2']) {
+                        sh "scp -o StrictHostKeyChecking=no server-script.sh ec2-user@172.31.33.159:/home/ec2-user"
+                   sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.33.159  'bash ~/server-script.sh'"
                      }
                 }
              }
