@@ -1,5 +1,5 @@
 pipeline{
-    agent Node1
+    agent any
     tools{
         jdk 'Myjava'
         maven 'Mymaven'
@@ -20,6 +20,11 @@ pipeline{
                 script{
                     echo "Test the code"
                     sh "mvn test"
+                }
+             }
+             post{
+                always{
+                junit 'target/surefire-reports/*.xml'
                 }
              }
         }
