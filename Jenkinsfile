@@ -33,7 +33,9 @@ pipeline{
              steps{
                 script{
                     echo "package the code"
-                    sh "mvn package"
+                    sshagent(['Build_server_key']) {
+                   sh "ssh ec2-user@172.31.29.112  'mvn package'"
+                     }
                 }
              }
         }
