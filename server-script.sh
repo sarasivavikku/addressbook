@@ -4,14 +4,13 @@
 
 if [ -d "addressbook" ]
 then
-echo "repo is the exists and pulling"
+echo "repo is the exists and package"
 cd /home/ec2-user/addressbook/
-git pull origin Sit_pipeline
+mvn package
+#git pull origin Sit_pipeline
 else
 echo "repo is not exists"
 git clone https://github.com/sarasivavikku/addressbook.git
 cd /home/ec2-user/addressbook/
-echo "packaging the coed"
-mvn package
 fi 
-
+echo "all done"
