@@ -1,4 +1,4 @@
-sudo yum install java
+# sudo yum install java
 sudo yum install maven -y
 sudo yum install git -y
 
