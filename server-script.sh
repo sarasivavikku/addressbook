@@ -6,7 +6,7 @@ if [ -d "addressbook" ]
 then
 echo "repo is the exists and package"
 cd /home/ec2-user/addressbook/
-mvn package
+mvn clean install
 #git pull origin Sit_pipeline
 else
 echo "repo is not exists"
