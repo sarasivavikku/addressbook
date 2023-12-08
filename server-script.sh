@@ -1,5 +1,5 @@
-sudo yum install java-1.8.0-openjdk-devel -y
-sudo yum install maven -y
+#sudo yum install java-1.8.0-openjdk-devel -y
+#sudo yum install maven -y
 sudo yum install git -y
 
 if [ -d "addressbook" ]
@@ -10,6 +10,6 @@ git pull origin hello
 else
 echo "repo is not exists"
 git clone https://github.com/sarasivavikku/addressbook.git
-cd /home/ec2-user/addressbook
+cd /home/ec2-user/addressbook/
 fi 
 mvn package
