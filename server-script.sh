@@ -11,5 +11,7 @@ else
 echo "repo is not exists"
 git clone https://github.com/sarasivavikku/addressbook.git
 cd /home/ec2-user/addressbook/
-fi 
+echo "packaging the coed"
 mvn package
+fi 
+
