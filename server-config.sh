@@ -1,5 +1,5 @@
 #! /bin/bash
-#sudo yum install java-1.8.0-openjdk-devel -y
+sudo yum install java-1.8.0
 sudo yum install git -y
 sudo yum install docker -y
 sudo systemctl start docker
