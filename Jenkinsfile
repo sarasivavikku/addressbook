@@ -9,8 +9,9 @@ pipeline{
      //   Build_server='ec2-user@172.31.29.112'
        // jenkinsslave='ec2-user@172.31.30.146'
         deploy_server='ec2-user@172.31.22.3'
+        Build4='ec2-user@172.31.21.87'
         // Novsec2jenkinsmaster='ec2-user@172.31.33.73'
-        // IMAGE_NAME='vikranth2/java-mvn-privaterepos'
+         IMAGE_NAME='vikranth2/java-mvn-privaterepos:$BUILD_NUMBER'
      }
 
     stages{
@@ -45,11 +46,11 @@ pipeline{
                     sshagent(['Build4']) {
                          echo 'PACKAGE-Hello World'
                          withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                       sh "scp -o StrictHostKeyChecking=no server-script.sh ec2-user@172.31.21.87:/home/ec2-user"
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87  'bash ~/server-script.sh '" 
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87 sudo docker build -t vikranth2/java-mvn-privaterepos /home/ec2-user/addressbook"
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87  sudo docker login -u $USERNAME -p $PASSWORD"
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87 sudo docker push vikranth2/java-mvn-privaterepos" 
+                       sh "scp -o StrictHostKeyChecking=no server-script.sh ${Build4}:/home/ec2-user"
+                    sh "ssh -o StrictHostKeyChecking=no ${Build4}  'bash ~/server-script.sh '" 
+                    sh "ssh -o StrictHostKeyChecking=no ${Build4} sudo docker build -t ${IMAGE_NAME} /home/ec2-user/addressbook"
+                    sh "ssh -o StrictHostKeyChecking=no ${Build4}  sudo docker login -u $USERNAME -p $PASSWORD"
+                    sh "ssh -o StrictHostKeyChecking=no ${Build4} sudo docker push ${IMAGE_NAME}" 
                          }
 
                      }
@@ -67,7 +68,7 @@ pipeline{
                 sh "ssh  -o StrictHostKeyChecking=no ${deploy_server} sudo yum install docker -y"
                 sh "ssh  ${deploy_server} sudo systemctl start docker"
                 sh "ssh  ${deploy_server} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
-                sh "ssh  ${deploy_server} sudo docker run -itd -P vikranth2/java-mvn-privaterepos "
+                sh "ssh  ${deploy_server} sudo docker run -itd -P ${IMAGE_NAME} "
                   }
                     }
                } 
