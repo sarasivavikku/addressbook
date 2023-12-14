@@ -44,7 +44,7 @@ pipeline{
                     echo "package the code"
                     sshagent(['Build4']) {
                          echo 'PACKAGE-Hello World'
-                         withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                         withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                        sh "scp -o StrictHostKeyChecking=no server-script.sh ec2-user@172.31.21.87:/home/ec2-user"
                     sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87  'bash ~/server-script.sh '" 
                     sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87 sudo docker build -t vikranth2/java-mvn-privaterepos /home/ec2-user/addressbook"
