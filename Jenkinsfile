@@ -47,26 +47,26 @@ pipeline{
                        sh "scp -o StrictHostKeyChecking=no server-script.sh ec2-user@172.31.21.87:/home/ec2-user"
                     sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87  'bash ~/server-script.sh '" 
                   // sh "ssh ${Build_server} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87 sudo docker build -t vikranth2/java-mvn-privaterepos:$BUILD_NUMBER ."
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87 sudo docker push vikranth2/java-mvn-privaterepos:$BUILD_NUMBER" 
+                   // sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87 sudo docker build -t vikranth2/java-mvn-privaterepos:$BUILD_NUMBER ."
+                   // sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87 sudo docker push vikranth2/java-mvn-privaterepos:$BUILD_NUMBER" 
                      }
                 }
              }
         }
 
-        stage("Deploy"){
-             steps{
-                script{
-                    echo "deploy the code"
-                    sshagent(['Deploy_server']) {
-                         echo 'Deploy the code'
-                sh "ssh  -o StrictHostKeyChecking=no ${deploy_server} sudo yum install docker -y"
-                sh "ssh  ${deploy_server} sudo systemctl start docker"
-                sh "ssh  ${deploy_server} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
-                sh "ssh  ${deploy_server} sudo docker run -itd -P ${IMAGE_NAME}:${BUILD_NUMBER}"
-                    }
-                } 
-           } 
-        }   
+       // stage("Deploy"){
+         //    steps{
+           //     script{
+           //         echo "deploy the code"
+                //    sshagent(['Deploy_server']) {
+                  //       echo 'Deploy the code'
+               // sh "ssh  -o StrictHostKeyChecking=no ${deploy_server} sudo yum install docker -y"
+              //  sh "ssh  ${deploy_server} sudo systemctl start docker"
+               // sh "ssh  ${deploy_server} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
+              //  sh "ssh  ${deploy_server} sudo docker run -itd -P ${IMAGE_NAME}:${BUILD_NUMBER}"
+                //    }
+        //      //  } 
+         //  } 
+      //  }   
     }
 }
