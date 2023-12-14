@@ -46,7 +46,7 @@ pipeline{
                         sh "scp -o StrictHostKeyChecking=no server-script.sh ${jenkinsslave}:/home/ec2-user"
                    sh "ssh -o StrictHostKeyChecking=no ${jenkinsslave} 'bash ~/server-script.sh ${IMAGE_NAME} ${BUILD_NUMBER}'" 
                   // sh "ssh ${Build_server} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
-                    sh "ssh $jenkinsslave} sudo docker push ${IMAGE_NAME}:${BUILD_NUMBER}" 
+                    sh "ssh ${jenkinsslave} sudo docker push ${IMAGE_NAME}:${BUILD_NUMBER}" 
                      }
                 }
              }
