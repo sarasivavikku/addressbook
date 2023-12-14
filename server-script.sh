@@ -15,3 +15,6 @@ fi
 mvn package
 sudo yum install docker -y
 sudo systemctl start docker
+sudo docker build -t vikranth2/java-mvn-privaterepos:$BUILD_NUMBER .
+sudo docker push vikranth2/java-mvn-privaterepos:$BUILD_NUMBER
+sudo docker run -itd -P vikranth2/java-mvn-privaterepos:$BUILD_NUMBER
