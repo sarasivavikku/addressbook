@@ -42,14 +42,14 @@ pipeline{
              steps{
                 script{
                     echo "package the code"
-                   // sshagent(['Build_server_key']) {
+                    sshagent(['Build4']) {
                          echo 'PACKAGE-Hello World'
-                        sh "scp -o StrictHostKeyChecking=no server-script.sh ${jenkinsslave}:/home/ec2-user"
-                  // sh "ssh -o StrictHostKeyChecking=no ${jenkinsslave} 'bash ~/server-script.sh ${IMAGE_NAME}'" 
+                       sh "scp -o StrictHostKeyChecking=no server-script.sh ec2-user@172.31.21.87:/home/ec2-user"
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87  'bash ~/server-script.sh '" 
                   // sh "ssh ${Build_server} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
                     sh "ssh ${jenkinsslave} sudo docker build -t vikranth2/java-mvn-privaterepos:$BUILD_NUMBER ."
                     sh "ssh ${jenkinsslave} sudo docker push vikranth2/java-mvn-privaterepos:$BUILD_NUMBER" 
-                    // }
+                     }
                 }
              }
         }
