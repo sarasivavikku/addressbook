@@ -5,13 +5,13 @@ pipeline{
         maven 'Mymaven'
     } 
 
-   // environment{
+    environment{
      //   Build_server='ec2-user@172.31.29.112'
        // jenkinsslave='ec2-user@172.31.30.146'
         deploy_server='ec2-user@172.31.22.3'
         // Novsec2jenkinsmaster='ec2-user@172.31.33.73'
         // IMAGE_NAME='vikranth2/java-mvn-privaterepos'
-    // }
+     }
 
     stages{
         stage("Compile"){
