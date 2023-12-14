@@ -1,4 +1,4 @@
-From tomcat:latest
+From tomcat:8.5.72-jdk17-openjdk-buster
 add target/addressbook.war /user/local/tomcat/webapps
 
 # Expose the port on which Tomcat will listen (usually port 8080)
