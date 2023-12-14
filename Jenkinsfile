@@ -42,8 +42,8 @@ pipeline{
                     sshagent(['Build_server_key']) {
                          echo 'PACKAGE-Hello World'
                         sh "scp -o StrictHostKeyChecking=no server-script.sh ${Build_server}:/home/ec2-user"
-                   sh "ssh -o StrictHostKeyChecking=no ${Build_server} 'bash ~/server-script.sh'" 
-                   sh "ssh ${Build_server} sudo docker login -u ${dockeruser} -p ${dockerpassword}"
+                   sh "ssh -o StrictHostKeyChecking=no ${Build_server} 'bash ~/server-script.sh ${IMAGE_NAME} ${BUILD_NUMBER}'" 
+                   sh "ssh ${Build_server} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
                     sh "ssh ${Build_server} sudo docker push ${IMAGE_NAME}:${BUILD_NUMBER}" 
                      }
                 }
