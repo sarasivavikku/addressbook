@@ -38,7 +38,7 @@ pipeline{
         }
 
         stage("Package"){
-             agent {label 'Node1'}
+            // agent {label 'Node1'}
              steps{
                 script{
                     echo "package the code"
