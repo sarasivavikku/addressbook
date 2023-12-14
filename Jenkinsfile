@@ -47,8 +47,8 @@ pipeline{
                        sh "scp -o StrictHostKeyChecking=no server-script.sh ec2-user@172.31.21.87:/home/ec2-user"
                     sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87  'bash ~/server-script.sh '" 
                   // sh "ssh ${Build_server} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
-                   // sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87 sudo docker build -t vikranth2/java-mvn-privaterepos:$BUILD_NUMBER ."
-                   // sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87 sudo docker push vikranth2/java-mvn-privaterepos:$BUILD_NUMBER" 
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.21.87 sudo docker build -t vikranth2/java-mvn-privaterepos /home/ec2-user/addressbook"
+                    sh sudo docker push vikranth2/java-mvn-privaterepos" 
                      }
                 }
              }
