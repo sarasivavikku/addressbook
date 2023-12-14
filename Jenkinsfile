@@ -38,17 +38,18 @@ pipeline{
         }
 
         stage("Package"){
+            agent Node1
              steps{
                 script{
                     echo "package the code"
-                    sshagent(['Build_server_key']) {
+                   // sshagent(['Build_server_key']) {
                          echo 'PACKAGE-Hello World'
                         sh "scp -o StrictHostKeyChecking=no server-script.sh ${jenkinsslave}:/home/ec2-user"
                   // sh "ssh -o StrictHostKeyChecking=no ${jenkinsslave} 'bash ~/server-script.sh ${IMAGE_NAME}'" 
                   // sh "ssh ${Build_server} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
                     sh "ssh ${jenkinsslave} sudo docker build -t vikranth2/java-mvn-privaterepos:$BUILD_NUMBER ."
                     sh "ssh ${jenkinsslave} sudo docker push vikranth2/java-mvn-privaterepos:$BUILD_NUMBER" 
-                     }
+                    // }
                 }
              }
         }
