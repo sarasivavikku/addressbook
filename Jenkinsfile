@@ -1,10 +1,10 @@
 pipeline{
     agent any
     // agent {label 'Node1'}
-    tools{
-        jdk 'Myjava'
-        maven 'Mymaven'
-    } 
+   // tools{
+     //   jdk 'Myjava'
+      //  maven 'Mymaven'
+   // } 
 
     environment{
      //   Build_server='ec2-user@172.31.29.112'
