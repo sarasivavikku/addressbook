@@ -1,5 +1,5 @@
 pipeline{
-    agent {label 'Node1'}
+    // agent {label 'Node1'}
     tools{
         jdk 'Myjava'
         maven 'Mymaven'
