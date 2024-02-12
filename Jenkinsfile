@@ -1,4 +1,5 @@
 pipeline{
+    agent any
     // agent {label 'Node1'}
     tools{
         jdk 'Myjava'
@@ -39,6 +40,7 @@ pipeline{
         }
 
         stage("Package"){
+            agent any
             // agent {label 'Node1'}
              steps{
                 script{
@@ -60,6 +62,7 @@ pipeline{
         }
 
         stage("TF will provison deploy server"){
+            agent any
             steps{
                 script{
                     dir('terraform'){
@@ -75,6 +78,7 @@ pipeline{
         }
 
         stage("Deploy"){
+            agent any
              steps{
                script{
                   echo "${EC2_PUBLIC_IP}"
