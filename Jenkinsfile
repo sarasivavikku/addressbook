@@ -42,6 +42,7 @@ pipeline{
             // agent {label 'Node1'}
              steps{
                 script{
+                    sleep(time:90,unit: "SECONDS")
                     echo "package the code"
                     sshagent(['Build4']) {
                          echo 'PACKAGE-Hello World'
@@ -58,17 +59,30 @@ pipeline{
              }
         }
 
+        stage("TF will provison deploy server"){
+            steps{
+                script{
+                    dir('terraform'){
+                    sh "terraform init"
+                    sh "terraform apply --auto-approve"
+                    EC2_PUBLIC_IP=sh(
+                        script: "terraform output ec2-ip",
+                        returnStdout: true
+                    ).trim()
+                    }
+                }
+            }
+        }
+
         stage("Deploy"){
              steps{
                script{
-                  echo "deploy the code"
+                  echo "${EC2_PUBLIC_IP}"
                     sshagent(['Deploy_server']) {
                          echo 'Deploy the code'
                   withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {       
-                sh "ssh  -o StrictHostKeyChecking=no ${deploy_server} sudo yum install docker -y"
-                sh "ssh  ${deploy_server} sudo systemctl start docker"
-                sh "ssh  ${deploy_server} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
-                sh "ssh  ${deploy_server} sudo docker run -itd -P ${IMAGE_NAME} "
+                sh "ssh  -o StrictHostKeyChecking=no ec2-user@${EC2_PUBLIC_IP} sudo docker login -u ${USERNAME} -p ${PASSWORD}"
+                sh "ssh  ec2-user@${EC2_PUBLIC_IP} sudo docker run -itd -P ${IMAGE_NAME} "
                   }
                     }
                } 
